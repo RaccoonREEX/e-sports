@@ -12,8 +12,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.target>26</maven.compiler.target>
-    <maven.compiler.source>26</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+    <maven.compiler.source>21</maven.compiler.source>
   </properties>
 
   <dependencies>
@@ -46,6 +46,7 @@
         <version>2.6.0</version>
         <configuration>
           <deployWar>true</deployWar>
+          <payaraVersion>7.2026.11</payaraVersion>
         </configuration>
         <executions>
           <execution>
