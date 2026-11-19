@@ -34,7 +34,7 @@ public class SportControl {
         jugador.setFecha(LocalDate.of(1990, 10, 28));
         jugador.setEquipo("Desarrollo");
 
-        IO.println("El equipo %s esta configurado por los siguientes jugadores %d - %s"
+        System.out.println("El equipo %s esta configurado por los siguientes jugadores %d - %s"
                 .formatted(
                         jugador.getEquipo(),
                         jugador.getCodigo(),
@@ -47,7 +47,7 @@ public class SportControl {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response crearJugadorBasico(JugadorBasico jugador) {
-        IO.println("El jugador es: %s".formatted(jugador.nombre()));
+        System.out.println("El jugador es: %s".formatted(jugador.nombre()));
         return Response.status(Response.Status.CREATED).entity(jugador).build();
 
     }
