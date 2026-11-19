@@ -46,7 +46,7 @@
         <version>2.6.0</version>
         <configuration>
           <deployWar>true</deployWar>
-          <payaraVersion>7.2026.11</payaraVersion>
+          <payaraMicroVersion>7.2026.11</payaraMicroVersion>
         </configuration>
         <executions>
           <execution>
