@@ -1,8 +1,9 @@
 package ec.edu.puce;
 
 import ec.edu.puce.sport.model.Juador;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
+import ec.edu.puce.sport.model.JugadorBasico;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.time.LocalDate;
@@ -41,6 +42,14 @@ public class SportControl {
 
                 ));
         return Response.status(Response.Status.CREATED).entity(jugador).build();
+    }
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response crearJugadorBasico(JugadorBasico jugador) {
+        IO.println("El jugador es: %s".formatted(jugador.nombre()));
+        return Response.status(Response.Status.CREATED).entity(jugador).build();
+
     }
 
     @GET
