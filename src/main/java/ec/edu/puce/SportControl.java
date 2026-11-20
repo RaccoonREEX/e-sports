@@ -9,20 +9,19 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @ApplicationScoped
 @Path("/sport")
 public class SportControl {
 
     public static final List<JugadorBasico> jugadores = new ArrayList<>();
-    private static int siguienteCodigo = 1;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public synchronized Response crearJugadorBasico(JugadorEntrada entrada) {
-        int codigoNuevo = siguienteCodigo;
-        siguienteCodigo++;
+        String codigoNuevo = UUID.randomUUID().toString();
 
         JugadorBasico jugador = new JugadorBasico(codigoNuevo, entrada.nombre(), entrada.fecha());
         jugadores.add(jugador);
@@ -44,10 +43,10 @@ public class SportControl {
     @Path("/{codigo}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response actualizarJugador(@PathParam("codigo") int codigo, JugadorBasico jugador) {
+    public synchronized Response actualizarJugador(@PathParam("codigo") String codigo, JugadorEntrada entrada) {
         for (int i = 0; i < jugadores.size(); i++) {
-            if (jugadores.get(i).codigo() == codigo) {
-                JugadorBasico actualizado = new JugadorBasico(codigo, jugador.nombre(), jugador.fecha());
+            if (jugadores.get(i).codigo().equals(codigo)) {
+                JugadorBasico actualizado = new JugadorBasico(codigo, entrada.nombre(), entrada.fecha());
                 jugadores.set(i, actualizado);
 
                 System.out.println("Jugador actualizado: %s".formatted(actualizado.nombre()));
@@ -61,9 +60,9 @@ public class SportControl {
 
     @DELETE
     @Path("/{codigo}")
-    public Response eliminarJugador(@PathParam("codigo") int codigo) {
+    public synchronized Response eliminarJugador(@PathParam("codigo") String codigo) {
         for (int i = 0; i < jugadores.size(); i++) {
-            if (jugadores.get(i).codigo() == codigo) {
+            if (jugadores.get(i).codigo().equals(codigo)) {
                 jugadores.remove(i);
 
                 System.out.println("Jugador eliminado con codigo: %s".formatted(codigo));
