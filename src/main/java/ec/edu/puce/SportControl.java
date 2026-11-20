@@ -13,18 +13,14 @@ import java.util.List;
 @Path("/sport")
 public class SportControl {
 
-    List<JugadorBasico> jugadores;
-
-    public SportControl() {
-        jugadores = new ArrayList<>();
-    }
+    public static final List<JugadorBasico> jugadores = new ArrayList<>();
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response crearJugadorBasico(JugadorBasico jugador) {
-        for (int i = 0; i < jugadores.size(); i++) {
-            if (jugadores.get(i).codigo() == jugador.codigo()) {
+        for (JugadorBasico registrado : jugadores) {
+            if (registrado.codigo() == jugador.codigo()) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .type(MediaType.TEXT_PLAIN)
                         .entity("El jugador ya existe")
