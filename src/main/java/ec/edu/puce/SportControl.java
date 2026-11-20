@@ -1,6 +1,7 @@
 package ec.edu.puce;
 
 import ec.edu.puce.sport.model.JugadorBasico;
+import ec.edu.puce.sport.model.JugadorEntrada;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -8,30 +9,26 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @ApplicationScoped
 @Path("/sport")
 public class SportControl {
 
     public static final List<JugadorBasico> jugadores = new ArrayList<>();
+    private static int siguienteCodigo = 1;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response crearJugadorBasico(JugadorBasico jugador) {
-        for (JugadorBasico registrado : jugadores) {
-            if (registrado.codigo() == jugador.codigo()) {
-                return Response.status(Response.Status.NOT_FOUND)
-                        .type(MediaType.APPLICATION_JSON)
-                        .entity(Map.of("error", "El jugador ya existe"))
-                        .build();
-            }
-        }
+    public synchronized Response crearJugadorBasico(JugadorEntrada entrada) {
+        int codigoNuevo = siguienteCodigo;
+        siguienteCodigo++;
 
+        JugadorBasico jugador = new JugadorBasico(codigoNuevo, entrada.nombre(), entrada.fecha());
         jugadores.add(jugador);
 
         System.out.println("El jugador es: %s".formatted(jugador.nombre()));
+        System.out.println("Su codigo es: %s".formatted(jugador.codigo()));
         System.out.println("La lista contiene %s registros".formatted(jugadores.size()));
 
         return Response.status(Response.Status.CREATED).entity(jugador).build();
