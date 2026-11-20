@@ -8,6 +8,7 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @ApplicationScoped
 @Path("/sport")
@@ -23,7 +24,7 @@ public class SportControl {
             if (registrado.codigo() == jugador.codigo()) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .type(MediaType.TEXT_PLAIN)
-                        .entity("El jugador ya existe")
+                        .entity(Map.of(k1: "error", v1:"El valor ya existe"))
                         .build();
             }
         }
