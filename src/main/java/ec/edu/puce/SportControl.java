@@ -27,8 +27,6 @@ public class SportControl {
         jugadores.add(jugador);
 
         System.out.println("El jugador es: %s".formatted(jugador.nombre()));
-        System.out.println("Su codigo es: %s".formatted(jugador.codigo()));
-        System.out.println("La lista contiene %s registros".formatted(jugadores.size()));
 
         return Response.status(Response.Status.CREATED).entity(jugador).build();
     }
