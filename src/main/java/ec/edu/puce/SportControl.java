@@ -23,8 +23,8 @@ public class SportControl {
         for (JugadorBasico registrado : jugadores) {
             if (registrado.codigo() == jugador.codigo()) {
                 return Response.status(Response.Status.NOT_FOUND)
-                        .type(MediaType.TEXT_PLAIN)
-                        .entity(Map.of(k1: "error", v1:"El valor ya existe"))
+                        .type(MediaType.APPLICATION_JSON)
+                        .entity(Map.of("error", "El jugador ya existe"))
                         .build();
             }
         }
