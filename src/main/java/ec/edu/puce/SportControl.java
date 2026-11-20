@@ -23,6 +23,15 @@ public class SportControl {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response crearJugadorBasico(JugadorBasico jugador) {
+        for (int i = 0; i < jugadores.size(); i++) {
+            if (jugadores.get(i).codigo() == jugador.codigo()) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .type(MediaType.TEXT_PLAIN)
+                        .entity("El jugador ya existe")
+                        .build();
+            }
+        }
+
         jugadores.add(jugador);
 
         System.out.println("El jugador es: %s".formatted(jugador.nombre()));
